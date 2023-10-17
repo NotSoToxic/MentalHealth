@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Questionnaire</title>
+</head>
+<body>
+    <h1>Questionnaire</h1>
+
+    <div id="questions">
+        <p>Question 1: Do you often feel sad or hopeless? <label><input type="radio" name="q1" value="yes">Yes</label> <label><input type="radio" name="q1" value="no">No</label></p>
+        <p>Question 2: Do you have trouble concentrating? <label><input type="radio" name="q2" value="yes">Yes</label> <label><input type="radio" name="q2" value="no">No</label></p>
+        <p>Question 3: Have you experienced a loss of interest in things you once enjoyed? <label><input type="radio" name="q3" value="yes">Yes</label> <label><input type="radio" name="q3" value="no">No</label></p>
+    </div>
+
+    <button onclick="calculateScore()">Submit</button>
+
+    <div id="result" style="display: none;">
+        <h2>Result:</h2>
+        <p id="score">Your score: 0</p>
+        <p id="statement">Statement: </p>
+    </div>
+
+    <script>
+        function calculateScore() {
+            const answers = document.querySelectorAll('input[type=radio]:checked');
+            const yesCount = Array.from(answers).filter(answer => answer.value === 'yes').length;
+            const statement = getStatement(yesCount);
+
+            document.querySelector("#score").textContent = `Your score: ${yesCount}`;
+            document.querySelector("#statement").textContent = `Statement: ${statement}`;
+            document.querySelector("#result").style.display = "block";
+        }
+
+        function getStatement(yesCount) {
+            if (yesCount == 0) {
+                return "You seem to be in good mental health.";
+            } else if (yesCount == 1) {
+                return "You might be experiencing mild stress.";
+            } else if (yesCount == 2) {
+                return "You may be showing signs of generalized anxiety disorder (GAD).";
+            } else {
+                return "You might be suffering from mild to moderate depression.";
+            }
+        }
+    </script>
+</body>
+</html>
